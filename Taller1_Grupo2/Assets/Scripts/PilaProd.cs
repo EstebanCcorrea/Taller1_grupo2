@@ -4,23 +4,20 @@ using System.IO;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PilaProductos : MonoBehaviour
+public class PilaProd : MonoBehaviour
 {
-    [Header("UI")]
     [SerializeField]
-    private TMP_Text textPila;
 
-    private List<Producto> catalogo = new List<Producto>();
-    private List<string> lineasOriginales = new List<string>();
+    public TMP_Text textPila;
 
-    void Start()
-    {
-        CargarProductosDesdeArchivo();
-        MostrarProductosEnPantalla();
-    }
+    public List<Producto> catalogo = new List<Producto>();
+    public Stack<Producto> pila = new Stack<Producto>();
 
-    private void CargarProductosDesdeArchivo()
+
+
+    public void CargarProductosDesdeArchivo()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "productos.txt");
 
@@ -45,7 +42,6 @@ public class PilaProductos : MonoBehaviour
             {
                 Producto p = new Producto(datos[0], datos[1], datos[2], peso, precio, tiempo);
                 catalogo.Add(p);
-                lineasOriginales.Add(linea);
             }
             else
             {
@@ -53,23 +49,41 @@ public class PilaProductos : MonoBehaviour
             }
         }
 
-        Debug.Log($" Se cargaron {catalogo.Count} productos.");
+        Debug.Log($"Se cargaron {catalogo.Count} productos.");
     }
 
 
+    public void IniciarSimulacion()
+    {
+        if (catalogo.Count == 0) return;
 
-    private void MostrarProductosEnPantalla()
+        // Generamos 1 a 3 productos aleatorios
+        int cantidad = Random.Range(1, 4);
+
+        for (int i = 0; i < cantidad; i++)
+        {
+            int index = Random.Range(0, catalogo.Count);
+            Producto seleccionado = catalogo[index];
+            pila.Push(seleccionado);
+        }
+
+        ActualizarTextoPila();
+    }
+
+
+    public void ActualizarTextoPila()
     {
         if (textPila == null) return;
 
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("Lista de productos:\n");
+        sb.AppendLine("Pila de productos (tope → fondo):\n");
 
-        foreach (string linea in lineasOriginales)
+        foreach (Producto p in pila)
         {
-            sb.AppendLine(linea);
+            sb.AppendLine($"{p.id} | {p.nombre} | {p.tipo} | Peso: {p.peso} | Precio: {p.precio} | Tiempo: {p.tiempo}");
         }
 
+        sb.AppendLine($"\nTotal en pila: {pila.Count}");
         textPila.text = sb.ToString();
     }
 }
