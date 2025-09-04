@@ -17,10 +17,4 @@ public class Producto
         this.precio = precio;
         this.tiempo = tiempo;
     }
-
-    public override string ToString()
-    {
-        return $"{id} - {nombre} ({tipo}) | Peso: {peso} | Precio: {precio} | Tiempo: {tiempo}";
-    }
 }
-
