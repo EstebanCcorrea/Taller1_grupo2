@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using System.IO;
-using System.Collections.Generic;
-using TMPro;
+﻿using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Text;
+using TMPro;
+using UnityEngine;
 
 public class PilaProductos : MonoBehaviour
 {
@@ -55,21 +56,20 @@ public class PilaProductos : MonoBehaviour
         Debug.Log($" Se cargaron {catalogo.Count} productos.");
     }
 
-    
+
 
     private void MostrarProductosEnPantalla()
     {
-        if (textPila == null)
-        {
-            Debug.LogWarning("No se asignó el TMP_Text en el inspector. Asigna un objeto TMP en el Canvas.");
-            return;
-        }
+        if (textPila == null) return;
 
-        textPila.text = "Lista de productos:\n\n";
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("Lista de productos:\n");
 
         foreach (string linea in lineasOriginales)
         {
-            textPila.text += linea + "\n";
+            sb.AppendLine(linea);
         }
+
+        textPila.text = sb.ToString();
     }
 }
