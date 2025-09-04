@@ -167,6 +167,7 @@ MonoBehaviour:
   ButtonIniciar: {fileID: 1587459037}
   textDesapilado: {fileID: 1611258108}
   catalogo: []
+  metricas: {fileID: 576030390}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +438,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571741829}
   m_CullTransparentMesh: 1
+--- !u!1 &576030389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 576030391}
+  - component: {fileID: 576030390}
+  m_Layer: 0
+  m_Name: ScriptMetricas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &576030390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576030389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6da073f63e6e9a4696a1ac7f92246b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalGenerados: 0
+  totalDespachados: 0
+  tiempoTotalDespacho: 0
+--- !u!4 &576030391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576030389}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 452.01205, y: 191.21602, z: 0.017136198}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +806,7 @@ MonoBehaviour:
   ButtonIniciar: {fileID: 0}
   textDesapilado: {fileID: 0}
   catalogo: []
+  metricas: {fileID: 0}
 --- !u!1 &971603434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,6 +1663,7 @@ MonoBehaviour:
   ButtonIniciar: {fileID: 0}
   textDesapilado: {fileID: 0}
   catalogo: []
+  metricas: {fileID: 0}
 --- !u!1 &1624477573
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,7 +1835,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -65186, y: -9.187622}
-  m_SizeDelta: {x: -1244.9, y: -258.2269}
+  m_SizeDelta: {x: -1244.9, y: -258.22693}
   m_Pivot: {x: 52.9, y: 0.5}
 --- !u!114 &1648788094
 MonoBehaviour:
@@ -2152,3 +2202,4 @@ SceneRoots:
   - {fileID: 303787254}
   - {fileID: 1778382219}
   - {fileID: 1680455549}
+  - {fileID: 576030391}
