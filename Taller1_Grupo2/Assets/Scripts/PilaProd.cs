@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -8,15 +9,19 @@ using UnityEngine.UI;
 
 public class PilaProd : MonoBehaviour
 {
-    [SerializeField]
-
+    [SerializeField] 
+    
     public TMP_Text textPila;
+    public Button ButtonIniciar;
+    public TMP_Text textDesapilado;
 
     public List<Producto> catalogo = new List<Producto>();
     public Stack<Producto> pila = new Stack<Producto>();
 
+    
+    private Coroutine despachoCoroutine;
 
-
+    
     public void CargarProductosDesdeArchivo()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "productos.txt");
@@ -52,12 +57,12 @@ public class PilaProd : MonoBehaviour
         Debug.Log($"Se cargaron {catalogo.Count} productos.");
     }
 
-
+   
     public void IniciarSimulacion()
     {
         if (catalogo.Count == 0) return;
 
-        // Generamos 1 a 3 productos aleatorios
+        // Genera 1 a 3 productos aleatorios
         int cantidad = Random.Range(1, 4);
 
         for (int i = 0; i < cantidad; i++)
@@ -68,15 +73,40 @@ public class PilaProd : MonoBehaviour
         }
 
         ActualizarTextoPila();
+
+        // Iniciamos la corutina de despacho si no estaba corriendo
+        if (despachoCoroutine == null)
+        {
+            despachoCoroutine = StartCoroutine(DespacharProductos());
+        }
     }
 
+    // Corutina que desapila productos según su tiempo
+    private IEnumerator DespacharProductos()
+    {
+        while (pila.Count > 0)
+        {
+            Producto actual = pila.Peek();          
+            yield return new WaitForSeconds(actual.tiempo); 
+            Producto desapilado=pila.Pop();                              
+            ActualizarTextoPila();                   
 
+            if (textDesapilado != null)
+            {
+                textDesapilado.text = $"Último despacho:\n{desapilado.id} | {desapilado.nombre} | {desapilado.tipo}";
+            }
+        }
+
+        despachoCoroutine = null; 
+    }
+
+  
     public void ActualizarTextoPila()
     {
         if (textPila == null) return;
 
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("Pila de productos (tope → fondo):\n");
+        sb.AppendLine("Pila de productos:\n");
 
         foreach (Producto p in pila)
         {
