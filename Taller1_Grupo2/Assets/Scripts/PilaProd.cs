@@ -17,7 +17,7 @@ public class PilaProd : MonoBehaviour
 
     public List<Producto> catalogo = new List<Producto>();
     public Stack<Producto> pila = new Stack<Producto>();
-    public MetricasS metricasS;
+    public MetricasS scriptMetricas;
 
 
     private Coroutine despachoCoroutine;
@@ -119,15 +119,16 @@ public class PilaProd : MonoBehaviour
     }
     public void MostrarMetricas()
     {
-        if (metricasS != null)
+        if (scriptMetricas != null)
         {
-            metricasS.MostrarMetricasUI();
+            scriptMetricas.MostrarMetricasUI();
         }
         else
         {
             Debug.LogWarning("No se ha asignado el script MetricasS.");
         }
     }
+
 
 }
 
