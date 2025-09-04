@@ -17,8 +17,9 @@ public class PilaProd : MonoBehaviour
 
     public List<Producto> catalogo = new List<Producto>();
     public Stack<Producto> pila = new Stack<Producto>();
+    public MetricasS metricas;
 
-    
+
     private Coroutine despachoCoroutine;
 
     
