@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class MetricasS: MonoBehaviour
 {
+    public TMP_Text textoMetricas;
+    public TMP_Text textDespachosT;
     public int totalGenerados = 0;
     public int totalDespachados = 0;
     public float tiempoTotalDespacho = 0f;
@@ -47,6 +50,25 @@ public class MetricasS: MonoBehaviour
         }
 
         return tipoMas;
+    }
+    public void MostrarMetricasUI()
+    {
+        float promedio = ObtenerTiempoPromedioDespacho();
+        string tipoTop = ObtenerTipoMasDespachado();
+
+        textoMetricas.text = $" Métricas Globales:\n" +
+                             $"Generados: {totalGenerados}\n" +
+                             $"Despachados: {totalDespachados}\n" +
+                             $"Promedio tiempo: {promedio:F2}s\n" +
+                             $"Tipo más despachado: {tipoTop}";
+
+        string resumenTipos = " Despachos por tipo:\n";
+        foreach (var par in despachadosPorTipo)
+        {
+            resumenTipos += $"{par.Key}: {par.Value}\n";
+        }
+
+        textDespachosT.text = resumenTipos;
     }
 
 }

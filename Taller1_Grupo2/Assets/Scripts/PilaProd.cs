@@ -17,7 +17,7 @@ public class PilaProd : MonoBehaviour
 
     public List<Producto> catalogo = new List<Producto>();
     public Stack<Producto> pila = new Stack<Producto>();
-    public MetricasS metricas;
+    public MetricasS metricasS;
 
 
     private Coroutine despachoCoroutine;
@@ -117,4 +117,17 @@ public class PilaProd : MonoBehaviour
         sb.AppendLine($"\nTotal en pila: {pila.Count}");
         textPila.text = sb.ToString();
     }
+    public void MostrarMetricas()
+    {
+        if (metricasS != null)
+        {
+            metricasS.MostrarMetricasUI();
+        }
+        else
+        {
+            Debug.LogWarning("No se ha asignado el script MetricasS.");
+        }
+    }
+
 }
+

@@ -167,7 +167,7 @@ MonoBehaviour:
   ButtonIniciar: {fileID: 1587459037}
   textDesapilado: {fileID: 1611258108}
   catalogo: []
-  metricas: {fileID: 576030390}
+  metricasS: {fileID: 576030390}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6da073f63e6e9a4696a1ac7f92246b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textoMetricas: {fileID: 1256436776}
+  textDespachosT: {fileID: 971603436}
   totalGenerados: 0
   totalDespachados: 0
   tiempoTotalDespacho: 0
@@ -806,7 +808,7 @@ MonoBehaviour:
   ButtonIniciar: {fileID: 0}
   textDesapilado: {fileID: 0}
   catalogo: []
-  metricas: {fileID: 0}
+  metricasS: {fileID: 0}
 --- !u!1 &971603434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,6 +1167,7 @@ GameObject:
   - component: {fileID: 1256436775}
   - component: {fileID: 1256436777}
   - component: {fileID: 1256436776}
+  - component: {fileID: 1256436778}
   m_Layer: 5
   m_Name: textoMetricas
   m_TagString: Untagged
@@ -1290,6 +1293,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256436774}
   m_CullTransparentMesh: 1
+--- !u!114 &1256436778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256436774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6da073f63e6e9a4696a1ac7f92246b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textoMetricas: {fileID: 1256436776}
+  textDespachosT: {fileID: 0}
+  totalGenerados: 0
+  totalDespachados: 0
+  tiempoTotalDespacho: 0
 --- !u!1 &1578278601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,7 +1683,7 @@ MonoBehaviour:
   ButtonIniciar: {fileID: 0}
   textDesapilado: {fileID: 0}
   catalogo: []
-  metricas: {fileID: 0}
+  metricasS: {fileID: 0}
 --- !u!1 &1624477573
 GameObject:
   m_ObjectHideFlags: 0
