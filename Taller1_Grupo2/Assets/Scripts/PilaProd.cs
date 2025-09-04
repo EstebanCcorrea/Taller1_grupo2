@@ -81,6 +81,7 @@ public class PilaProd : MonoBehaviour
             despachoCoroutine = StartCoroutine(DespacharProductos());
         }
     }
+    
 
     // Corutina que desapila productos según su tiempo
     private IEnumerator DespacharProductos()
@@ -126,6 +127,15 @@ public class PilaProd : MonoBehaviour
         else
         {
             Debug.LogWarning("No se ha asignado el script MetricasS.");
+        }
+    }
+
+    public void DetenerSimulacion()
+    {
+        if (despachoCoroutine != null)
+        {
+            StopCoroutine(despachoCoroutine);
+            despachoCoroutine = null;
         }
     }
 
