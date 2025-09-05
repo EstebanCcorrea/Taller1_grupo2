@@ -217,7 +217,7 @@ public class PilaProd : MonoBehaviour
 
     public void AbrirCarpetaJson()
     {
-        string ruta = Path.Combine(Application.persistentDataPath, "metricas.json");
+        string ruta = Path.Combine(Application.streamingAssetsPath, "metricas.json");
         string carpeta = Path.GetDirectoryName(ruta);
         Application.OpenURL("file:///" + carpeta);
     }
