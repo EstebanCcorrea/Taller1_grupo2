@@ -17,10 +17,10 @@ public class MetricasS : MonoBehaviour
     {
         if (pilaProd == null) return;
 
-        textGenerados.text = $"Generados: {pilaProd.totalGenerados}";
-        textDespachados.text = $"Despachados: {pilaProd.totalDespachados}";
-        textPromedio.text = $"Promedio tiempo: {pilaProd.ObtenerTiempoPromedioDespacho():0.00}s";
-        textMetricas.text = $"Metricas Globales: {pilaProd.ObtenerTipoMasDespachado()}";
+        textGenerados.text = $"Total generados: {pilaProd.totalGenerados}";
+        textDespachados.text = $"Total despachados: {pilaProd.totalDespachados}";
+        textPromedio.text = $"Tiempo promedio: {pilaProd.ObtenerTiempoPromedioDespacho():0.00}s";
+        textMetricas.text = $"Tipo más despachado: \n{pilaProd.ObtenerTipoMasDespachado()}";
 
         // Mostrar despachos por tipo
         StringBuilder sb = new StringBuilder();

@@ -7,6 +7,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class PilaProd : MonoBehaviour
 {
     [SerializeField] 
@@ -14,13 +16,15 @@ public class PilaProd : MonoBehaviour
     public TMP_Text textPila;
     public Button ButtonIniciar;
     public TMP_Text textDesapilado;
-
+    public GameObject panelAviso; 
     public List<Producto> catalogo = new List<Producto>();
     public Stack<Producto> pila = new Stack<Producto>();
     public MetricasS scriptMetricas;
+    public GameObject panelJson;
 
 
     private Coroutine despachoCoroutine;
+    
 
     public int totalGenerados = 0;
     public int totalDespachados = 0;
@@ -63,9 +67,12 @@ public class PilaProd : MonoBehaviour
         Debug.Log($"Se cargaron {catalogo.Count} productos.");
     }
 
+
+
    
     public void IniciarSimulacion()
     {
+        if (tiempoInicio < 0f) tiempoInicio = Time.time;
         if (catalogo.Count == 0) return;
 
         // Genera 1 a 3 productos aleatorios
@@ -86,7 +93,15 @@ public class PilaProd : MonoBehaviour
         {
             despachoCoroutine = StartCoroutine(DespacharProductos());
         }
+
     }
+
+    // Tiempo de simulación (para tiempo_total_generacion)
+    private float tiempoInicio = -1f;
+    private float tiempoFin = 0f;
+
+
+
 
     // Corutina que desapila productos según su tiempo
     private IEnumerator DespacharProductos()
@@ -175,9 +190,91 @@ public class PilaProd : MonoBehaviour
 
     public void CerrarSimulacion()
     {
+        // Verificar si todavía hay productos en la pila
+        if (pila.Count > 0)
+        {
+            if (panelAviso != null)
+            {
+                panelAviso.SetActive(true); // Mostrar aviso
+            }
+            Debug.Log("No se puede cerrar: la pila aún tiene productos.");
+            return;
+        }
+
+
+
         DetenerSimulacion();
+        tiempoFin = Time.time;
         MostrarMetricas();
+        string ruta = GuardarMetricasAJson();
+        Debug.Log($"Métricas guardadas en: {ruta}");
+
+        if (panelJson != null)
+        {
+            panelJson.SetActive(true);           
+        }
     }
+
+    public void AbrirCarpetaJson()
+    {
+        string ruta = Path.Combine(Application.persistentDataPath, "metricas.json");
+        string carpeta = Path.GetDirectoryName(ruta);
+        Application.OpenURL("file:///" + carpeta);
+    }
+
+    [System.Serializable]
+    public class TipoConteoDTO
+    {
+        public string tipo;
+        public int cantidad;
+    }
+
+    [System.Serializable]
+    public class MetricasDTO
+    {
+        public int total_generados;
+        public int total_despachados;
+        public int total_en_pila;
+        public float tiempo_promedio_despacho;
+        public float tiempo_total_despacho;
+        public float tiempo_total_generacion;
+        public TipoConteoDTO[] despachados_por_tipo;
+        public string tipo_mas_despachado;
+    }
+
+    private MetricasDTO ConstruirDTO()
+    {
+        var lista = new List<TipoConteoDTO>();
+        foreach (var kv in despachadosPorTipo)
+            lista.Add(new TipoConteoDTO { tipo = kv.Key, cantidad = kv.Value });
+
+        return new MetricasDTO
+        {
+            total_generados = totalGenerados,
+            total_despachados = totalDespachados,
+            total_en_pila = pila.Count,
+            tiempo_promedio_despacho = ObtenerTiempoPromedioDespacho(),
+            tiempo_total_despacho = tiempoTotalDespacho,
+            tiempo_total_generacion = (tiempoFin > 0f && tiempoInicio >= 0f) ? (tiempoFin - tiempoInicio) : 0f,
+            despachados_por_tipo = lista.ToArray(),
+            tipo_mas_despachado = ObtenerTipoMasDespachado()
+        };
+    }
+
+    private string GuardarMetricasAJson()
+    {
+        var dto = ConstruirDTO();
+        string json = JsonUtility.ToJson(dto, true);
+        string carpeta = Application.persistentDataPath; 
+        string ruta = Path.Combine(carpeta, "metricas.json");
+        File.WriteAllText(ruta, json, Encoding.UTF8);
+        return ruta;
+    }
+
+
+
+
+
 }
 
 
