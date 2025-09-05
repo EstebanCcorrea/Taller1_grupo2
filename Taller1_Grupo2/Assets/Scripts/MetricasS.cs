@@ -11,7 +11,7 @@ public class MetricasS : MonoBehaviour
     public TMP_Text textMetricas;
     public TMP_Text textPorTipo;
 
-    public PilaProd pilaProd; // Asignar desde el inspector
+    public PilaProd pilaProd; 
 
     public void MostrarMetricasUI()
     {
@@ -22,7 +22,6 @@ public class MetricasS : MonoBehaviour
         textPromedio.text = $"Tiempo promedio: {pilaProd.ObtenerTiempoPromedioDespacho():0.00}s";
         textMetricas.text = $"Tipo más despachado: \n{pilaProd.ObtenerTipoMasDespachado()}";
 
-        // Mostrar despachos por tipo
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("Despachos por tipo:");
         foreach (var par in pilaProd.despachadosPorTipo)
