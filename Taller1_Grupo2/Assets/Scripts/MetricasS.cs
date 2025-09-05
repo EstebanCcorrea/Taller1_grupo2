@@ -1,74 +1,34 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using System.Text;
 
-public class MetricasS: MonoBehaviour
+public class MetricasS : MonoBehaviour
 {
-    public TMP_Text textoMetricas;
-    public TMP_Text textDespachosT;
-    public int totalGenerados = 0;
-    public int totalDespachados = 0;
-    public float tiempoTotalDespacho = 0f;
-    public Dictionary<string, int> despachadosPorTipo = new Dictionary<string, int>();
+    public TMP_Text textGenerados;
+    public TMP_Text textDespachados;
+    public TMP_Text textPromedio;
+    public TMP_Text textMetricas;
+    public TMP_Text textPorTipo;
 
-    public void RegistrarGenerados(int cantidad)
-    {
-        totalGenerados += cantidad;
-    }
+    public PilaProd pilaProd; // Asignar desde el inspector
 
-    public void RegistrarDespacho(string tipo, float tiempoDespacho)
-    {
-        totalDespachados++;
-        tiempoTotalDespacho += tiempoDespacho;
-        if (despachadosPorTipo.ContainsKey(tipo))
-        {
-            despachadosPorTipo[tipo]++;
-        }
-        else
-        {
-            despachadosPorTipo[tipo] = 1;
-        }
-    }
-    public float ObtenerTiempoPromedioDespacho()
-    {
-        if (totalDespachados == 0) return 0f;
-        return tiempoTotalDespacho / totalDespachados;
-    }
-
-    public string ObtenerTipoMasDespachado()
-    {
-        string tipoMas = "";
-        int max = 0;
-
-        foreach (var par in despachadosPorTipo)
-        {
-            if (par.Value > max)
-            {
-                max = par.Value;
-                tipoMas = par.Key;
-            }
-        }
-
-        return tipoMas;
-    }
     public void MostrarMetricasUI()
     {
-        float promedio = ObtenerTiempoPromedioDespacho();
-        string tipoTop = ObtenerTipoMasDespachado();
+        if (pilaProd == null) return;
 
-        textoMetricas.text = $" Métricas Globales:\n" +
-                             $"Generados: {totalGenerados}\n" +
-                             $"Despachados: {totalDespachados}\n" +
-                             $"Promedio tiempo: {promedio:F2}s\n" +
-                             $"Tipo más despachado: {tipoTop}";
+        textGenerados.text = $"Generados: {pilaProd.totalGenerados}";
+        textDespachados.text = $"Despachados: {pilaProd.totalDespachados}";
+        textPromedio.text = $"Promedio tiempo: {pilaProd.ObtenerTiempoPromedioDespacho():0.00}s";
+        textMetricas.text = $"Metricas Globales: {pilaProd.ObtenerTipoMasDespachado()}";
 
-        string resumenTipos = " Despachos por tipo:\n";
-        foreach (var par in despachadosPorTipo)
+        // Mostrar despachos por tipo
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("Despachos por tipo:");
+        foreach (var par in pilaProd.despachadosPorTipo)
         {
-            resumenTipos += $"{par.Key}: {par.Value}\n";
+            sb.AppendLine($"{par.Key}: {par.Value}");
         }
-
-        textDespachosT.text = resumenTipos;
+        textPorTipo.text = sb.ToString();
     }
-
 }
