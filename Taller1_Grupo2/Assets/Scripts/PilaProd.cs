@@ -17,11 +17,17 @@ public class PilaProd : MonoBehaviour
 
     public List<Producto> catalogo = new List<Producto>();
     public Stack<Producto> pila = new Stack<Producto>();
+    public MetricasS scriptMetricas;
 
-    
+
     private Coroutine despachoCoroutine;
 
-    
+    public int totalGenerados = 0;
+    public int totalDespachados = 0;
+    public float tiempoTotalDespacho = 0f;
+    public Dictionary<string, int> despachadosPorTipo = new Dictionary<string, int>();
+
+
     public void CargarProductosDesdeArchivo()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "productos.txt");
@@ -67,6 +73,7 @@ public class PilaProd : MonoBehaviour
 
         for (int i = 0; i < cantidad; i++)
         {
+            totalGenerados++;
             int index = Random.Range(0, catalogo.Count);
             Producto seleccionado = catalogo[index];
             pila.Push(seleccionado);
@@ -88,13 +95,24 @@ public class PilaProd : MonoBehaviour
         {
             Producto actual = pila.Peek();          
             yield return new WaitForSeconds(actual.tiempo); 
-            Producto desapilado=pila.Pop();                              
+            Producto desapilado=pila.Pop();  
+            totalDespachados++;
+            tiempoTotalDespacho += actual.tiempo;
+            if (despachadosPorTipo.ContainsKey(actual.tipo))
+            {
+                despachadosPorTipo[actual.tipo]++;
+            }
+            else
+            {
+                despachadosPorTipo[actual.tipo] = 1;
+            }
             ActualizarTextoPila();                   
 
             if (textDesapilado != null)
             {
                 textDesapilado.text = $"Último despacho:\n{desapilado.id} | {desapilado.nombre} | {desapilado.tipo}";
             }
+            
         }
 
         despachoCoroutine = null; 
@@ -116,4 +134,52 @@ public class PilaProd : MonoBehaviour
         sb.AppendLine($"\nTotal en pila: {pila.Count}");
         textPila.text = sb.ToString();
     }
+
+    public float ObtenerTiempoPromedioDespacho()
+    {
+        if (totalDespachados == 0) return 0f;
+        return tiempoTotalDespacho / totalDespachados;
+    }
+
+    public string ObtenerTipoMasDespachado()
+    {
+        string tipoMas = "";
+        int max = 0;
+        foreach (var par in despachadosPorTipo)
+        {
+            if (par.Value > max)
+            {
+                max = par.Value;
+                tipoMas = par.Key;
+            }
+        }
+        return tipoMas;
+    }
+
+    public void MostrarMetricas()
+    {
+        if (scriptMetricas != null && totalDespachados > 0)
+        {
+            scriptMetricas.MostrarMetricasUI();
+        }
+    }
+
+    public void DetenerSimulacion()
+    {
+        if (despachoCoroutine != null)
+        {
+            StopCoroutine(despachoCoroutine);
+            despachoCoroutine = null;
+        }
+    }
+
+    public void CerrarSimulacion()
+    {
+        DetenerSimulacion();
+        MostrarMetricas();
+    }
 }
+
+
+
+

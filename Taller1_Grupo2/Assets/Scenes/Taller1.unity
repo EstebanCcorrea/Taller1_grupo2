@@ -167,6 +167,10 @@ MonoBehaviour:
   ButtonIniciar: {fileID: 1587459037}
   textDesapilado: {fileID: 1611258108}
   catalogo: []
+  scriptMetricas: {fileID: 576030390}
+  totalGenerados: 0
+  totalDespachados: 0
+  tiempoTotalDespacho: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,13 +391,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 0a9c6bc6514905f4894e59070b93ee01, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 303787255}
+        m_TargetAssemblyTypeName: PilaProd, Assembly-CSharp
+        m_MethodName: CerrarSimulacion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -437,6 +441,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571741829}
   m_CullTransparentMesh: 1
+--- !u!1 &576030389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 576030391}
+  - component: {fileID: 576030390}
+  m_Layer: 0
+  m_Name: ScriptMetricas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &576030390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576030389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6da073f63e6e9a4696a1ac7f92246b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textGenerados: {fileID: 1256436776}
+  textDespachados: {fileID: 1256436776}
+  textPromedio: {fileID: 1256436776}
+  textMetricas: {fileID: 1256436776}
+  textPorTipo: {fileID: 971603436}
+  pilaProd: {fileID: 303787255}
+--- !u!4 &576030391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576030389}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 452.01205, y: 191.21602, z: 0.017136198}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +812,10 @@ MonoBehaviour:
   ButtonIniciar: {fileID: 0}
   textDesapilado: {fileID: 0}
   catalogo: []
+  scriptMetricas: {fileID: 0}
+  totalGenerados: 0
+  totalDespachados: 0
+  tiempoTotalDespacho: 0
 --- !u!1 &971603434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1174,7 @@ GameObject:
   - component: {fileID: 1256436775}
   - component: {fileID: 1256436777}
   - component: {fileID: 1256436776}
+  - component: {fileID: 1256436778}
   m_Layer: 5
   m_Name: textoMetricas
   m_TagString: Untagged
@@ -1241,6 +1300,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256436774}
   m_CullTransparentMesh: 1
+--- !u!114 &1256436778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256436774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6da073f63e6e9a4696a1ac7f92246b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textGenerados: {fileID: 0}
+  textDespachados: {fileID: 0}
+  textPromedio: {fileID: 0}
+  textMetricas: {fileID: 0}
+  textPorTipo: {fileID: 0}
+  pilaProd: {fileID: 0}
 --- !u!1 &1578278601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,6 +1691,10 @@ MonoBehaviour:
   ButtonIniciar: {fileID: 0}
   textDesapilado: {fileID: 0}
   catalogo: []
+  scriptMetricas: {fileID: 0}
+  totalGenerados: 0
+  totalDespachados: 0
+  tiempoTotalDespacho: 0
 --- !u!1 &1624477573
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,7 +1866,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -65186, y: -9.187622}
-  m_SizeDelta: {x: -1244.9, y: -258.2269}
+  m_SizeDelta: {x: -1244.9, y: -258.22693}
   m_Pivot: {x: 52.9, y: 0.5}
 --- !u!114 &1648788094
 MonoBehaviour:
@@ -2088,7 +2169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
@@ -2152,3 +2233,4 @@ SceneRoots:
   - {fileID: 303787254}
   - {fileID: 1778382219}
   - {fileID: 1680455549}
+  - {fileID: 576030391}
