@@ -265,7 +265,7 @@ public class PilaProd : MonoBehaviour
     {
         var dto = ConstruirDTO();
         string json = JsonUtility.ToJson(dto, true);
-        string carpeta = Application.persistentDataPath; 
+        string carpeta = Application.streamingAssetsPath; 
         string ruta = Path.Combine(carpeta, "metricas.json");
         File.WriteAllText(ruta, json, Encoding.UTF8);
         return ruta;
