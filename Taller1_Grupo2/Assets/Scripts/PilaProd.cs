@@ -16,13 +16,15 @@ public class PilaProd : MonoBehaviour
     public TMP_Text textPila;
     public Button ButtonIniciar;
     public TMP_Text textDesapilado;
-
+    public GameObject panelAviso; 
     public List<Producto> catalogo = new List<Producto>();
     public Stack<Producto> pila = new Stack<Producto>();
     public MetricasS scriptMetricas;
+    public GameObject panelJson;
 
 
     private Coroutine despachoCoroutine;
+    
 
     public int totalGenerados = 0;
     public int totalDespachados = 0;
@@ -188,13 +190,37 @@ public class PilaProd : MonoBehaviour
 
     public void CerrarSimulacion()
     {
+        // Verificar si todavía hay productos en la pila
+        if (pila.Count > 0)
+        {
+            if (panelAviso != null)
+            {
+                panelAviso.SetActive(true); // Mostrar aviso
+            }
+            Debug.Log("No se puede cerrar: la pila aún tiene productos.");
+            return;
+        }
+
+
+
         DetenerSimulacion();
         tiempoFin = Time.time;
         MostrarMetricas();
         string ruta = GuardarMetricasAJson();
         Debug.Log($"Métricas guardadas en: {ruta}");
+
+        if (panelJson != null)
+        {
+            panelJson.SetActive(true);           
+        }
     }
 
+    public void AbrirCarpetaJson()
+    {
+        string ruta = Path.Combine(Application.persistentDataPath, "metricas.json");
+        string carpeta = Path.GetDirectoryName(ruta);
+        Application.OpenURL("file:///" + carpeta);
+    }
 
     [System.Serializable]
     public class TipoConteoDTO
