@@ -20,7 +20,7 @@ public class MetricasS : MonoBehaviour
         textGenerados.text = $"Total generados: {pilaProd.totalGenerados}";
         textDespachados.text = $"Total despachados: {pilaProd.totalDespachados}";
         textPromedio.text = $"Tiempo promedio: {pilaProd.ObtenerTiempoPromedioDespacho():0.00}s";
-        textMetricas.text = $"Tipo más despachado: {pilaProd.ObtenerTipoMasDespachado()}";
+        textMetricas.text = $"Tipo más despachado: \n{pilaProd.ObtenerTipoMasDespachado()}";
 
         // Mostrar despachos por tipo
         StringBuilder sb = new StringBuilder();
